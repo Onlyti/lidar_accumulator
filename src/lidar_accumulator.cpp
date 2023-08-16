@@ -164,11 +164,21 @@ bool LidarAccumulator::Run()
     if (deque_p_input_point_clouds_.back()->header.stamp > deque_time_affine_pose_.front().first)
         return true;
 
+    // Que clear
     while (deque_p_input_point_clouds_.back()->header.stamp <= deque_time_affine_pose_.back().first)
     {
         deque_p_input_point_clouds_.pop_back();
         if (deque_p_input_point_clouds_.empty() == true)
-            break;
+            return true;
+    }
+    if (deque_time_affine_pose_.size() > 2)
+    {
+        while (deque_time_affine_pose_[deque_time_affine_pose_.size() - 2].first <= deque_p_input_point_clouds_.back()->header.stamp)
+        {
+            deque_time_affine_pose_.pop_back();
+            if (deque_time_affine_pose_.size() < 2)
+                break;
+        }
     }
 
     // Syncronise data
@@ -230,7 +240,7 @@ bool LidarAccumulator::Run()
     if (deque_synced_pose_point_cloud.empty() == true)
         return true;
     // Remove overflowed points
-    while(deque_synced_pose_point_cloud.size() > cfg_i_accum_num_lidar_scan_)
+    while (deque_synced_pose_point_cloud.size() > cfg_i_accum_num_lidar_scan_)
         deque_synced_pose_point_cloud.pop_back();
     // Check pub
     if (last_publish_time_us == deque_synced_pose_point_cloud.front().second->header.stamp)
