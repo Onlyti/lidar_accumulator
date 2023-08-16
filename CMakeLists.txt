@@ -24,6 +24,7 @@ catkin_package(
 
 include_directories(
   include
+  include/tsl
   ${catkin_INCLUDE_DIRS}
   ${Open3D_INCLUDE_DIRS}
   ${OpenMP_CXX_INCLUDE_DIRS}
@@ -49,5 +50,4 @@ target_link_libraries(${PROJECT_NAME}
     PUBLIC ${LIBRARIES}
     ${catkin_LIBRARIES}
     ${PCL_LIBRARIES}
-    tsl::robin_map
 )
