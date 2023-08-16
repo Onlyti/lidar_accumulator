@@ -19,6 +19,7 @@
 // Standard
 #include <unordered_map>
 #include <deque>
+#include <chrono>
 
 // template<typename pointT=pcl::PointXYZI>
 using PointType = pcl::PointXYZI;
