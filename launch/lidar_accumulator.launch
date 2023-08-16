@@ -1,29 +1,28 @@
 
 <launch>
-    <node pkg="lidar_accumulator" type="lidar_accumulator_2" name="lidar_accumulator_2" output="screen">
+    <node pkg="lidar_accumulator" type="lidar_accumulator" name="lidar_accumulator" output="screen">
         <param name="s_input_point_topic_name_" value="/velodyne_points"/>
-        <!-- <param name="s_input_point_topic_name_" value="/afi910_cloud_node/cloud"/> -->
         <param name="s_input_odom_topic_name_" value="/odometry_node/odometry"/>
-        <param name="s_output_point_topic_name_" value="accum_points"/>
+        <param name="s_output_point_topic_name_" value="/lidar_accumulator/accum_points"/>
 
         <param name="cfg_i_accum_num_lidar_scan_" value="30"/>
 
-        <param name="cfg_d_accum_key_threshold_m_" value="0.4"/>
+        <param name="cfg_d_accum_key_threshold_m_" value="0.2"/>
 
         <param name="cfg_d_roi_min_m_" value="5.0"/>
-        <param name="cfg_d_roi_max_m_" value="20.0"/>
+        <param name="cfg_d_roi_max_m_" value="40.0"/>
 
         <param name="cfg_b_filter_use_voxel_" value="true"/>
         <param name="cfg_d_filter_voxel_leaf_" value="0.15"/>
 
-        <param name="cfg_b_msg_debug_" value="true"/>
-        <param name="cfg_b_msg_comp_time_" value="true"/>
+        <param name="cfg_b_msg_debug_" value="false"/>
+        <param name="cfg_b_msg_comp_time_" value="false"/>
         
-    </node>
+    </node>\
 
-    <!-- <arg name="rviz" default="true" />
+    <arg name="rviz" default="true" />
     <group if="$(arg rviz)">
-        <node pkg="rviz" type="rviz" name="rviz" args="-d $(find lidar_odometry)/lidar_odom.rviz" />
-    </group> -->
+        <node pkg="rviz" type="rviz" name="rviz_lidar_accumulator" args="-d $(find lidar_accumulator)/config/rviz.rviz" />
+    </group>
 
 </launch>
